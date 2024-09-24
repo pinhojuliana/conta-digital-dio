@@ -26,41 +26,42 @@ public class Conta implements IConta{
 
     @Override
     public void sacar(double valor) {
-        if(valor > saldo || valor > 0){
-            saldo -= valor;
-            movimentacoes.put(LocalDate.now(), -valor);
-        } else if (valor < 0) {
-            System.out.println("Valor inválido.");
-        } else {
-            System.out.println("Saldo insuficiente.");
+        if (valor <= 0) {
+            throw new IllegalArgumentException("Valor inválido.");
         }
+        if (this.saldo < valor) {
+            throw new IllegalStateException("Saldo insuficiente.");
+        }
+        saldo -= valor;
+        movimentacoes.put(LocalDate.now(), -valor);
     }
 
     @Override
     public void depositar(double valor) {
-        if(valor > 0){
-            saldo += valor;
-            movimentacoes.put(LocalDate.now(), valor);
-        } else {
-            System.out.println("Valor inválido.");
+        if (valor <= 0) {
+            throw new IllegalArgumentException("Valor inválido.");
         }
+        saldo += valor;
+        movimentacoes.put(LocalDate.now(), valor);
     }
 
     @Override
     public void transferir(double valor, Conta conta) {
-       if(conta != null){
-           if(valor > 0) {
-               this.sacar(valor);
-               conta.depositar(valor);
-               this.movimentacoes.put(LocalDate.now(), -valor);
-               conta.movimentacoes.put(LocalDate.now(), valor);
-           } else {
-               System.out.println("Valor inválido.");
-           }
-       } else {
-           throw new NullPointerException("Não é possível realizar transferência. Conta inexistente.");
-       }
+        if (conta == null) {
+            throw new NullPointerException("Conta inexistente.");
+        }
 
+        if (valor <= 0) {
+            throw new IllegalArgumentException("Valor inválido.");
+        }
+
+        if (this.saldo < valor) {
+            throw new IllegalStateException("Saldo insuficiente.");
+        }
+        this.sacar(valor);
+        conta.depositar(valor);
+        this.movimentacoes.put(LocalDate.now(), -valor);
+        conta.movimentacoes.put(LocalDate.now(), valor);
     }
 
     @Override
