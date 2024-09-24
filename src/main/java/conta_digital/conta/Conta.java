@@ -2,20 +2,19 @@ package conta_digital.conta;
 
 import conta_digital.cliente.Cliente;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Conta implements IConta{
-    private static final int AGENCIA_PADRAO = 0001;
-    private static int SEQUENCIAL = 0001;
+    private static final int AGENCIA_PADRAO = 1;
+    private static int SEQUENCIAL = 1;
 
     protected int agencia;
     protected int numero;
     protected double saldo;
     protected Cliente cliente;
-    protected Map<LocalDate, Double> movimentacoes;
+    protected Map<LocalDateTime, Double> movimentacoes;
 
     public Conta(Cliente cliente){
         this.agencia = Conta.AGENCIA_PADRAO;
@@ -33,7 +32,7 @@ public class Conta implements IConta{
             throw new IllegalStateException("Saldo insuficiente.");
         }
         saldo -= valor;
-        movimentacoes.put(LocalDate.now(), -valor);
+        movimentacoes.put(LocalDateTime.now(), -valor);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class Conta implements IConta{
             throw new IllegalArgumentException("Valor inválido.");
         }
         saldo += valor;
-        movimentacoes.put(LocalDate.now(), valor);
+        movimentacoes.put(LocalDateTime.now(), valor);
     }
 
     @Override
@@ -60,13 +59,18 @@ public class Conta implements IConta{
         }
         this.sacar(valor);
         conta.depositar(valor);
-        this.movimentacoes.put(LocalDate.now(), -valor);
-        conta.movimentacoes.put(LocalDate.now(), valor);
     }
 
     @Override
     public void imprimirExtrato() {
-        movimentacoes.entrySet().forEach(System.out::println);
+        if (movimentacoes.isEmpty()) {
+            System.out.println("Nenhuma movimentação registrada.");
+            return;
+        }
+        movimentacoes.forEach((data, valor) ->
+                System.out.printf("Data: %s - Valor: %.2f%n", data, valor)
+        );
+        System.out.printf("Saldo atual: %.2f%n", saldo);
     }
 
     @Override

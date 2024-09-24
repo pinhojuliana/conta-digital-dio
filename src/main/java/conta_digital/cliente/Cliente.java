@@ -1,24 +1,23 @@
 package conta_digital.cliente;
 
-import conta_digital.conta.Conta;
 import conta_digital.validacao.ValidacaoEmail;
 import lombok.Getter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class Cliente implements Comparable<Cliente>{
     protected String nome;
-    protected LocalDate dataCadastro;
+    protected LocalDateTime dataCadastro;
     protected String email;
     //protected List<Conta> contas;
 
     public Cliente(String nome, String email){
         this.nome = nome;
         this.email = ValidacaoEmail.isValidEmail(email);
-        this.dataCadastro = LocalDate.now();
+        this.dataCadastro = LocalDateTime.now();
         //this.contas = new ArrayList<>();
     }
 

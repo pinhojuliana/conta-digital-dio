@@ -16,17 +16,13 @@ public class BancoApplication {
             Cliente cliente1 = new PessoaFisica("Maria", "maria@gmail.com", 12345678900L);
             Cliente cliente2 = new PessoaJuridica("Casa da Empada", "empadas.loja@outlook.com", 23456789011L);
 
-            Conta contaCorrente = new ContaCorrente(cliente2);
+            Conta contaCorrente = new ContaCorrente(cliente1);
             Conta contaPoupanca = new ContaPoupanca(cliente2);
 
             banco.cadastrarCliente(cliente1);
             banco.cadastrarCliente(cliente2);
             banco.cadastrarConta(contaCorrente);
             banco.cadastrarConta(contaPoupanca);
-            System.out.println("Clientes do banco:");
-            banco.imprimirClientes();
-            System.out.println("Contas do banco:");
-            banco.imprimirContas();
 
             contaCorrente.depositar(1000);
             contaCorrente.sacar(150);
@@ -38,6 +34,11 @@ public class BancoApplication {
             contaPoupanca.imprimirExtrato();
 
             contaCorrente.imprimirExtrato();
+
+            System.out.println("Clientes do banco:");
+            banco.imprimirClientes();
+            System.out.println("Contas do banco:");
+            banco.imprimirContas();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
