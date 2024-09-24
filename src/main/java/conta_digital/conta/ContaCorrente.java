@@ -1,4 +1,16 @@
 package conta_digital.conta;
 
-public class ContaCorrente {
+import conta_digital.cliente.Cliente;
+
+public class ContaCorrente extends Conta{
+
+    public ContaCorrente(Cliente cliente) {
+        super(cliente);
+    }
+
+    @Override
+    public void imprimirExtrato(){
+        System.out.println("=== Extrato Conta Corrente ===");
+        super.imprimirExtrato();
+    }
 }
