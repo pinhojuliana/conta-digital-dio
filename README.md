@@ -40,12 +40,12 @@ Este sistema bancário contém as seguintes funcionalidades:
 - **Transferir**: Realiza a transferência de valores entre contas. 🔄
 - **Imprimir Extrato**: Exibe as movimentações e o saldo atual da conta. 📃
 
-##📚 Conteúdos abordados
+## 📚 Conteúdos abordados
 - Java
 - Orientação a Objetos 
 - Collections (List, Map)
 - Exceções
 - Stream API
 
-##🤝 Contribuições
-- **Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.**
+## 🤝 Contribuições
+**Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.**
