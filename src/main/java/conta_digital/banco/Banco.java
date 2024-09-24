@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
@@ -19,6 +20,23 @@ public class Banco {
         this.nome = nome;
         this.contas = new ArrayList<>();
         this.clientes = new ArrayList<>();
+    }
+
+    public void cadastrarCliente(Cliente cliente){
+        clientes.add(cliente);
+    }
+
+    public void cadastrarConta(Conta conta){
+        contas.add(conta);
+    }
+
+    public void imprimirContas(){
+        contas.forEach(System.out::println);
+    }
+
+    public void imprimirClientes(){
+        System.out.println(clientes.stream().sorted().map(Cliente::getNome)
+                .collect(Collectors.joining("\n")));
     }
 
 }
